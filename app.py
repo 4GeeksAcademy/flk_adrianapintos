@@ -8,7 +8,7 @@ app = Flask(__name__)
 # CARGAR EL MODELO .sav
 # ========================
 # Ojo: el archivo .sav debe estar en la misma carpeta que app.py
-with open("boosting_classifier_nestimators-20_learnrate-0.001_42.sav", "rb") as f:
+with open("flk2.sav", "rb") as f:
     model = pickle.load(f)
 
 # ========================
