@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Predicción de Diabetes</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f9f9f9;
+        }
+        h1 {
+            color: #2c3e50;
+            text-align: center;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #3498db;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .result {
+            margin-top: 20px;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        .diabetic {
+            background-color: #ffdddd;
+            color: #c0392b;
+        }
+        .not-diabetic {
+            background-color: #ddffdd;
+            color: #27ae60;
+        }
+        input::placeholder {
+            color: #999;
+            font-style: italic;
+            font-size: 0.9em;
+        }
+        input:focus::placeholder {
+            color: transparent;
+        }
+        .form-group {
+            position: relative;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Predicción de Diabetes</h1>
+    <form action="/predict" method="post">
+        <div class="form-group">
+            <label for="pregnancies">Embarazos (Pregnancies):</label>
+            <input type="number" id="pregnancies" name="Pregnancies" 
+                   min="0" max="20" required placeholder="0-20">
+        </div>
+
+        <div class="form-group">
+            <label for="glucose">Glucosa (Glucose):</label>
+            <input type="number" id="glucose" name="Glucose" 
+                   min="0" max="200" required placeholder="70-200 mg/dL">
+        </div>
+
+        <div class="form-group">
+            <label for="blood_pressure">Presión arterial (BloodPressure):</label>
+            <input type="number" id="blood_pressure" name="BloodPressure" 
+                   min="0" max="150" required placeholder="40-140 mmHg">
+        </div>
+
+        <div class="form-group">
+            <label for="insulin">Insulina (Insulin):</label>
+            <input type="number" id="insulin" name="Insulin" 
+                   min="0" max="900" required placeholder="0-846 μU/ml">
+        </div>
+
+        <div class="form-group">
+            <label for="bmi">Índice de masa corporal (BMI):</label>
+            <input type="number" id="bmi" name="BMI" 
+                   min="0" max="70" step="0.1" required placeholder="10-70">
+        </div>
+
+        <div class="form-group">
+            <label for="diabetes_pedigree">Historial familiar (DiabetesPedigreeFunction):</label>
+            <input type="number" id="diabetes_pedigree" name="DiabetesPedigreeFunction" 
+                   min="0" max="2.5" step="0.01" required placeholder="0.08-2.42">
+        </div>
+
+        <div class="form-group">
+            <label for="age">Edad (Age):</label>
+            <input type="number" id="age" name="Age" 
+                   min="0" max="120" required placeholder="21-81 años">
+        </div>
+
+        <button type="submit">Predecir</button>
+    </form>
+
+    {% if prediction is defined %}
+    <div class="result {% if prediction == 1 %}diabetic{% else %}not-diabetic{% endif %}">
+        {% if prediction == 1 %}
+            Resultado: Positivo para diabetes (Outcome: 1)
+        {% else %}
+            Resultado: Negativo para diabetes (Outcome: 0)
+        {% endif %}
+    </div>
+    {% endif %}
+</body>
+</html>
